@@ -5,6 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>电容式传感器 · 3D 交互仿真</title>
 <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="mobile.css">
+<meta name="theme-color" content="#ffffff">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
 </head>
 <body>
 <header>
@@ -15,6 +19,10 @@
   <div id="stage">
     <canvas id="gl"></canvas>
     <div class="badge" id="badge">拖拽旋转 · 滚轮缩放</div>
+    <div class="mobbar" id="mobbar">
+      <button id="mbPause" type="button">暂停</button>
+      <button id="mbReset" type="button">复位</button>
+    </div>
     <div class="hintbar" id="tip"></div>
     <div class="keys" id="keys"></div>
   </div>

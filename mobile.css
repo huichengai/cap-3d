@@ -1,0 +1,84 @@
+/* ============ 手机 / 触屏适配（桌面不受影响） ============ */
+@media (max-width: 860px), (pointer: coarse){
+
+  html, body{ height:auto; overflow:auto; }
+  body{ display:block; -webkit-text-size-adjust:100%; }
+
+  header{
+    position:sticky; top:0; z-index:30;
+    padding:8px 14px 6px; min-height:0; gap:4px; flex-wrap:wrap;
+    flex-direction:column; align-items:flex-start;
+    box-shadow:0 1px 6px rgba(22,32,43,.06);
+  }
+  header h1{ font-size:15px; }
+  header h1 span{ font-size:10px; }
+  header .f{
+    margin-left:0; width:100%; display:flex; justify-content:flex-end;
+    font-size:15px; padding-right:0; line-height:1.1;
+  }
+  .eq{ font-size:15px; }
+  .eq i{ font-size:17px; }
+  .eq .nu em, .eq .de em{ font-size:16px; }
+
+  main{ display:block; }
+
+  #stage{ height:50vh; min-height:280px; }
+  #gl{ touch-action:none; }
+
+  .panel{ border-left:none; border-top:1px solid var(--line); }
+
+  .tabs{
+    position:sticky; top:56px; z-index:25; background:var(--card);
+    flex-wrap:nowrap; overflow-x:auto; padding:10px 12px; gap:8px;
+    -webkit-overflow-scrolling:touch;
+  }
+  .tabs::-webkit-scrollbar{ display:none; }
+  .tabs button{ flex:0 0 auto; font-size:14.5px; padding:11px 16px; white-space:nowrap; }
+
+  .scroll{ overflow:visible; padding:4px 14px 24px; }
+
+  .group{ font-size:12.5px; margin:14px 0 2px; }
+  .ctl{ margin:16px 0 20px; }
+  .ctl .nm{ font-size:15.5px; }
+  .ctl .vl{ font-size:15.5px; }
+  .ctl .row{ margin-bottom:8px; }
+
+  input[type=range]{ height:8px; }
+  input[type=range]::-webkit-slider-thumb{ width:28px; height:28px; border-width:4px; }
+
+  .readout{ padding:14px 16px; }
+  .readout .big{ font-size:34px; }
+  .readout .big small{ font-size:15px; }
+  .readout table{ font-size:14px; }
+  .readout td{ padding:3px 0; }
+
+  #chart{ height:132px; }
+  #plan{ height:150px !important; }
+
+  .real{ margin-top:14px; }
+  .hint{ font-size:13.5px; line-height:1.7; }
+
+  .badge{ font-size:12px; padding:5px 9px; left:10px; top:10px; }
+  .hintbar{ left:10px; right:10px; bottom:10px; font-size:12px; line-height:1.5; }
+
+  .keys{ display:none !important; }
+
+  footer{ font-size:11px; padding:8px 14px; }
+}
+
+/* ============ 手机专用悬浮按钮（桌面隐藏） ============ */
+.mobbar{ display:none; }
+
+@media (max-width: 860px), (pointer: coarse){
+  .mobbar{
+    display:flex; gap:8px; position:fixed; right:12px; top:104px; z-index:40;
+  }
+  .mobbar button{
+    font-family:inherit; font-size:13px; color:#16202b;
+    background:rgba(255,255,255,.92); border:1px solid var(--line);
+    border-radius:10px; padding:8px 13px; cursor:pointer;
+    box-shadow:0 2px 8px rgba(22,32,43,.08);
+  }
+  .mobbar button:active{ background:#e8eef6; }
+  .mobbar button.on{ background:#16202b; color:#fff; border-color:#16202b; }
+}

@@ -11,7 +11,9 @@ renderer.setPixelRatio(1);
 renderer.outputEncoding = THREE.sRGBEncoding;
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
 renderer.toneMappingExposure = 1.05;
-const FAST = new URLSearchParams(location.search).has("fast");   // 软渲染调试：关阴影
+const MOBILE = (window.matchMedia && (matchMedia("(max-width: 860px)").matches
+                || matchMedia("(pointer: coarse)").matches));
+const FAST = new URLSearchParams(location.search).has("fast") || MOBILE;   // 手机默认关阴影
 renderer.shadowMap.enabled = !FAST;
 renderer.shadowMap.type = THREE.PCFShadowMap;
 
@@ -20,6 +22,7 @@ scene.background = new THREE.Color(0xeef2f7);
 
 const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 100);
 const camState = { az: 0.62, el: 0.52, dist: 4.3, target: new THREE.Vector3(0, 0.62, 0) };
+if (MOBILE){ camState.dist = 4.0; camState.el = 0.46; }   // 手机：模型更饱满
 
 scene.add(new THREE.HemisphereLight(0xffffff, 0x8fa1b5, 0.55));
 const key = new THREE.DirectionalLight(0xfff6ec, 0.85); key.position.set(4, 6, 5);
@@ -50,15 +53,40 @@ let drag = false, lastX = 0, lastY = 0;
 canvas.addEventListener("pointerdown", e => { drag = true; lastX = e.clientX; lastY = e.clientY; });
 window.addEventListener("pointerup", () => drag = false);
 window.addEventListener("pointermove", e => {
-  if (!drag) return;
+  if (!drag || pinchD > 0) return;
   camState.az -= (e.clientX - lastX) * 0.008;
   camState.el = Math.max(-0.15, Math.min(1.25, camState.el + (e.clientY - lastY) * 0.006));
   lastX = e.clientX; lastY = e.clientY;
 });
-canvas.addEventListener("dblclick", () => {
+function resetCam(){
   camState.az = 0.62; camState.el = 0.52; camState.dist = 4.3;
   camState.target.set(0, 0.62, 0);
-});
+}
+canvas.addEventListener("dblclick", resetCam);
+/* 双指缩放（手机） */
+let pinchD = 0;
+canvas.addEventListener("touchstart", e => {
+  if (e.touches.length === 2){
+    pinchD = Math.hypot(e.touches[0].clientX - e.touches[1].clientX,
+                        e.touches[0].clientY - e.touches[1].clientY);
+    drag = false;
+  }
+}, {passive:true});
+canvas.addEventListener("touchmove", e => {
+  if (e.touches.length === 2 && pinchD > 0){
+    e.preventDefault();
+    const d = Math.hypot(e.touches[0].clientX - e.touches[1].clientX,
+                         e.touches[0].clientY - e.touches[1].clientY);
+    if (d > 0){
+      camState.dist = Math.max(2.0, Math.min(11, camState.dist * pinchD / d));
+      pinchD = d;
+    }
+  }
+}, {passive:false});
+canvas.addEventListener("touchend", e => {
+  if (e.touches.length < 2) pinchD = 0;
+}, {passive:true});
+
 canvas.addEventListener("wheel", e => {
   e.preventDefault();
   camState.dist = Math.max(2.2, Math.min(11, camState.dist + e.deltaY * 0.0022));
@@ -835,6 +863,22 @@ function tick(){
   renderer.render(scene, camera);
   requestAnimationFrame(tick);
 }
+
+/* 手机：提示文案与悬浮按钮 */
+if (MOBILE){
+  const b = document.getElementById("badge");
+  if (b) b.textContent = "单指旋转 · 双指缩放";
+}
+document.addEventListener("DOMContentLoaded", () => {});
+(function bindMobileBar(){
+  const btnR = document.getElementById("mbReset");
+  const btnP = document.getElementById("mbPause");
+  if (btnR) btnR.addEventListener("click", resetCam);
+  if (btnP) btnP.addEventListener("click", () => {
+    if (!clock.paused){ clock.off = (performance.now() - clock.t0) / 1000; clock.paused = true; btnP.textContent = "播放"; btnP.classList.add("on"); }
+    else { clock.t0 = performance.now() - clock.off * 1000; clock.paused = false; btnP.textContent = "暂停"; btnP.classList.remove("on"); }
+  });
+})();
 
 /* 尺寸 */
 function resize(){
