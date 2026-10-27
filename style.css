@@ -1,0 +1,69 @@
+:root{
+    --bg:#eef2f7; --card:#fff; --ink:#16202b; --muted:#61707f; --line:#dbe3ec;
+    --red:#e4573d; --blue:#2e6fd0; --amber:#e8a119; --soft:#f2f6fb;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%;margin:0}
+  body{background:var(--bg);color:var(--ink);display:flex;flex-direction:column;
+    font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;overflow:hidden}
+  header{display:flex;align-items:center;gap:22px;padding:10px 30px 10px 24px;min-height:58px;background:var(--card);
+    border-bottom:1px solid var(--line)}
+  header h1{font-size:18px;margin:0;font-weight:700}
+  header h1 span{font-size:12px;color:#95a3b2;font-weight:400;margin-left:6px}
+  header .f{margin-left:auto;padding-right:6px;font-size:17px;white-space:nowrap}
+  header .f b{color:var(--red)}
+  main{flex:1;display:grid;grid-template-columns:1fr 388px;min-height:0}
+  #stage{position:relative;min-width:0}
+  #gl{width:100%;height:100%;display:block}
+  .badge{position:absolute;left:18px;top:16px;font-size:13px;color:#7b8b9c;
+    background:rgba(255,255,255,.82);padding:6px 11px;border-radius:9px;border:1px solid var(--line)}
+  .hintbar{position:absolute;left:18px;bottom:14px;font-size:12.5px;color:#7b8b9c;
+    background:rgba(255,255,255,.82);padding:7px 12px;border-radius:9px;border:1px solid var(--line)}
+  .panel{background:var(--card);border-left:1px solid var(--line);display:flex;flex-direction:column;min-height:0}
+  .tabs{display:flex;gap:6px;padding:13px 13px 9px;flex-wrap:wrap}
+  .tabs button{flex:1 1 auto;padding:8px 9px;font-size:13px;border-radius:9px;cursor:pointer;
+    border:1px solid var(--line);background:var(--soft);color:#33465a;font-family:inherit}
+  .tabs button.on{background:#16202b;border-color:#16202b;color:#fff;font-weight:600}
+  .scroll{flex:1;overflow:auto;padding:2px 16px 14px}
+  .group{margin:12px 0 4px;font-size:12px;color:var(--muted);letter-spacing:.5px}
+  .ctl{margin:11px 0 13px}
+  .ctl .row{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:5px}
+  .ctl .nm{font-size:13.5px}
+  .ctl .vl{font-size:13px;color:var(--blue);font-weight:600;font-variant-numeric:tabular-nums}
+  input[type=range]{width:100%;-webkit-appearance:none;height:5px;border-radius:3px;
+    background:#cbd7e4;outline:none}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:17px;height:17px;border-radius:50%;
+    background:var(--blue);border:3px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.3);cursor:pointer}
+  .readout{margin:4px 0 0;padding:12px 14px;border-radius:12px;background:var(--soft);border:1px solid var(--line)}
+  .readout .big{font-size:29px;font-weight:700;color:var(--red);font-variant-numeric:tabular-nums;line-height:1.15}
+  .readout .big small{font-size:14px;color:var(--muted);font-weight:500;margin-left:3px}
+  .readout table{width:100%;border-collapse:collapse;margin-top:9px;font-size:12.5px}
+  .readout td{padding:2px 0;color:#3b4b5c}
+  .readout td:last-child{text-align:right;font-weight:600;font-variant-numeric:tabular-nums}
+  #chart{width:100%;height:110px;margin-top:10px;display:block;border-radius:10px;
+    background:#fbfcfe;border:1px solid var(--line)}
+  .real{margin:12px 0 0;border-radius:10px;overflow:hidden;border:1px solid var(--line);position:relative}
+  .real img{width:100%;display:block}
+  .real span{position:absolute;left:8px;bottom:7px;font-size:11.5px;color:#fff;
+    background:rgba(10,18,28,.55);padding:2px 7px;border-radius:6px}
+  .hint{margin:10px 0 0;padding:10px 12px;border-radius:10px;font-size:12.4px;line-height:1.65;
+    background:#fffaf0;border:1px solid #f3e2b8;color:#6b5313}
+  footer{padding:7px 24px 9px;font-size:12px;color:var(--muted);background:var(--card);border-top:1px solid var(--line)}
+
+.keys{position:absolute;right:18px;bottom:16px;min-width:238px;max-width:296px;
+  background:rgba(255,255,255,.93);border:1px solid var(--line);border-radius:11px;
+  padding:11px 13px;font-size:12.6px;line-height:1.75;color:#3b4b5c;
+  box-shadow:0 6px 18px rgba(22,32,43,.07)}
+.keys b{display:block;font-size:12.4px;color:#8a6410;margin-bottom:5px;letter-spacing:.4px}
+
+/* 顶部公式：分数排版（衬线斜体，接近印刷体） */
+.eq{display:inline-flex; align-items:center; gap:2px; line-height:1;
+  font-family:"Cambria Math","Times New Roman","STIXGeneral",serif;
+  font-size:18px; color:#1b2734; letter-spacing:.2px}
+.eq i{font-style:italic; font-size:20px; padding-right:2px}
+.eq .fr{display:inline-flex; flex-direction:column; align-items:center;
+  vertical-align:middle; margin:0 3px}
+.eq .nu{padding:0 6px 2px; line-height:1.05; border-bottom:1.6px solid #1b2734}
+.eq .de{padding:2px 6px 0; line-height:1.05}
+.eq em{font-style:italic}
+.eq .nu em, .eq .de em{color:#e4573d; font-weight:600; font-size:19px}

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>电容式传感器 · 3D 交互仿真</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <h1>电容式传感器 · 3D 交互仿真 <span>v2.0</span></h1>
+  <div class="f"><span class="eq"><i>C</i>&nbsp;=&nbsp;<span class="fr"><span class="nu">ε<sub>0</sub>ε<sub>r</sub><em>S</em></span><span class="de"><em>d</em></span></span></span></div>
+</header>
+<main>
+  <div id="stage">
+    <canvas id="gl"></canvas>
+    <div class="badge" id="badge">拖拽旋转 · 滚轮缩放</div>
+    <div class="hintbar" id="tip"></div>
+    <div class="keys" id="keys"></div>
+  </div>
+  <aside class="panel">
+    <div class="tabs" id="tabs"></div>
+    <div class="scroll" id="scroll"></div>
+  </aside>
+</main>
+<footer id="foot"></footer>
+
+<script src="three137.min.js"></script>
+<script src="GLTFLoader.js"></script>
+<script src="RGBELoader.js"></script>
+<script src="assets.js"></script>
+<script src="main.js"></script>
+</body>
+</html>
